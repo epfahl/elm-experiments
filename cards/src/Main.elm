@@ -7,6 +7,7 @@ import Element.Border as Border
 import Element.Events as Events
 import Element.Font as Font
 import Html exposing (Html)
+import Html.Attributes exposing (src)
 
 
 
@@ -97,7 +98,11 @@ viewTableCard model =
             <|
                 el
                     [ centerX, centerY ]
-                    (text "Top!")
+                    (image [ width (px 100) ]
+                        { src = "owl.png"
+                        , description = "This is an Owl."
+                        }
+                    )
 
         cardBottom =
             el
@@ -107,7 +112,19 @@ viewTableCard model =
                 , centerX
                 , centerY
                 ]
-                (text "Test!")
+            <|
+                el
+                    [ padding 10
+                    , centerX
+                    ]
+                <|
+                    paragraph []
+                        [ el
+                            [ Font.bold
+                            , Font.color (rgb255 150 150 150)
+                            ]
+                            (text "This is an owwwwrll.")
+                        ]
     in
     column
         [ width (px 300)
