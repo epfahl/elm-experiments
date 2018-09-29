@@ -15,10 +15,10 @@ import Html.Attributes exposing (src)
 
 
 backgroundColor =
-    rgb255 250 250 250
+    rgb255 240 240 240
 
 
-colCardTopBackgroundColor =
+shortCardTopBackgroundColor =
     rgb255 241 223 74
 
 
@@ -40,12 +40,50 @@ fontFamily =
     ]
 
 
-colCardWidth =
+shortCardWidth =
     250
 
 
-colCardAspec =
+shortCardAspec =
     0.75
+
+
+longCardWidth =
+    790
+
+
+longCardAspect =
+    12
+
+
+heightFromAspect width_ aspect_ =
+    (width_ / aspect_) |> round |> px
+
+
+cardShadow =
+    { blur = 5
+    , color = rgba 0 0 0 0.05
+    , offset = ( 0, 2 )
+    , size = 1
+    }
+
+
+border =
+    { bottom = 0
+    , left = 0
+    , right = 0
+    , top = 0
+    }
+
+
+owlPic width_ =
+    el
+        [ centerX, centerY ]
+        (image [ width (px width_) ]
+            { src = "owl.png"
+            , description = "This is an Owl."
+            }
+        )
 
 
 
@@ -102,34 +140,34 @@ view model =
         column
             [ centerX
             , centerY
+            , spacing 20
             ]
             [ row [ spacing 20 ]
-                [ viewTableCard model
-                , viewTableCard model
-                , viewTableCard model
+                [ viewShortCard model
+                , viewShortCard model
+                , viewShortCard model
+                ]
+            , column [ spacing 20 ]
+                [ viewLongCard model
+                , viewLongCard model
+                , viewLongCard model
                 ]
             ]
 
 
-viewTableCard : Model -> Element Msg
-viewTableCard model =
+viewShortCard : Model -> Element Msg
+viewShortCard model =
     let
         cardTop =
             el
                 [ width fill
                 , height (fillPortion 3)
-                , Background.color colCardTopBackgroundColor
+                , Background.color shortCardTopBackgroundColor
                 , centerX
                 , centerY
                 ]
             <|
-                el
-                    [ centerX, centerY ]
-                    (image [ width (px 150) ]
-                        { src = "owl.png"
-                        , description = "This is an Owl."
-                        }
-                    )
+                owlPic 150
 
         cardBottom =
             el
@@ -155,23 +193,59 @@ viewTableCard model =
                         ]
     in
     column
-        [ width (px colCardWidth)
-        , height (px (round (colCardWidth / colCardAspec)))
-        , Border.shadow
-            { blur = 5
-            , color = rgba 0 0 0 0.05
-            , offset = ( 0, 2 )
-            , size = 1
-            }
+        [ width (px shortCardWidth)
+        , height (heightFromAspect shortCardWidth shortCardAspec)
+        , Border.shadow cardShadow
         , Element.mouseOver
-            [ Border.shadow
-                { blur = 5
-                , color = rgba 0 0 0 0.1
-                , offset = ( 0, 2 )
-                , size = 2
-                }
+            [ Border.shadow { cardShadow | color = rgba 0 0 0 0.1, size = 2 }
             ]
         ]
         [ cardTop
         , cardBottom
+        ]
+
+
+viewLongCard : Model -> Element Msg
+viewLongCard model =
+    let
+        cardLeft =
+            el
+                [ width (fillPortion 1)
+                , height fill
+                , Background.color colorWhite
+                , centerX
+                , centerY
+                , Border.widthEach { border | right = 1 }
+                , Border.color (rgb255 200 200 200)
+                ]
+            <|
+                owlPic 40
+
+        cardRight =
+            el
+                [ width (fillPortion 8)
+                , height fill
+                , Background.color colorWhite
+                ]
+            <|
+                paragraph [ padding 10, centerY ]
+                    [ el
+                        [ Font.bold
+                        , Font.color (rgb255 150 150 150)
+                        , Font.family fontFamily
+                        , Font.size 16
+                        ]
+                        (text "This is a smaller owwwwrll.")
+                    ]
+    in
+    row
+        [ width (px longCardWidth)
+        , height (heightFromAspect longCardWidth longCardAspect)
+        , Border.shadow cardShadow
+        , Element.mouseOver
+            [ Border.shadow { cardShadow | color = rgba 0 0 0 0.1, size = 2 }
+            ]
+        ]
+        [ cardLeft
+        , cardRight
         ]
