@@ -55,7 +55,7 @@ labelFontAttrs =
     ]
 
 
-{-| An block element that receives only styling attributes.
+{-| An empty block element that receives only styling attributes.
 -}
 block : List (Attribute Msg) -> Element Msg
 block attrs =
@@ -100,15 +100,15 @@ fillPercent percent =
 
 
 dataInit =
-    [ { label = "Ads", value = 20 }
-    , { label = "Content", value = 22 }
-    , { label = "Demos", value = 23 }
-    , { label = "Email-M", value = 18 }
-    , { label = "Email-S", value = 21 }
-    , { label = "Events", value = 19 }
-    , { label = "Meetings", value = 20 }
-    , { label = "Phone", value = 21 }
-    , { label = "Webinars", value = 18 }
+    [ { label = "Category 1", value = 20 }
+    , { label = "Category 2", value = 22 }
+    , { label = "Category 3", value = 23 }
+    , { label = "Category 4", value = 18 }
+    , { label = "Category 5", value = 21 }
+    , { label = "Category 6", value = 19 }
+    , { label = "Category 7", value = 20 }
+    , { label = "Category 8", value = 21 }
+    , { label = "Category 9", value = 18 }
     ]
 
 
