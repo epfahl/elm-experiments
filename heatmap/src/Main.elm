@@ -14,15 +14,31 @@ import Html exposing (Html)
 -- Constants and helpers
 
 
-{-| An empty block element that receives only styling attributes.
+gray =
+    rgb255 120 120 120
+
+
+teal =
+    rgb255 98 173 170
+
+
+orange =
+    rgb255 234 127 103
+
+
+explain =
+    Element.explain Debug.todo
+
+
+{-| An empty element that receives only styling attributes.
 -}
-block : List (Attribute Msg) -> Element Msg
-block attrs =
+box : List (Attribute Msg) -> Element Msg
+box attrs =
     el attrs (el [] Element.none)
 
 
 props =
-    {}
+    { gridSpacing = 5 }
 
 
 
@@ -43,12 +59,16 @@ main =
 
 
 type alias Model =
-    {}
+    { dims : Dims }
+
+
+type alias Dims =
+    { nrow : Int, ncol : Int }
 
 
 init : Model
 init =
-    {}
+    { dims = Dims 9 7 }
 
 
 
@@ -71,6 +91,49 @@ update msg model =
 
 
 view : Model -> Html Msg
-view model =
+view { dims } =
+    let
+        space =
+            5
+    in
     Element.layout [] <|
-        block []
+        el
+            [ width (px 600)
+            , height (px 400)
+            , centerX
+            , centerY
+            ]
+        <|
+            column
+                [ width fill
+                , height fill
+                , spacing props.gridSpacing
+                ]
+            <|
+                List.repeat dims.nrow
+                    (viewRow <|
+                        List.repeat
+                            dims.ncol
+                        <|
+                            viewColorCell teal
+                    )
+
+
+viewRow : List (Element Msg) -> Element Msg
+viewRow cells =
+    row
+        [ width fill
+        , height (fillPortion (List.length cells))
+        , spacing props.gridSpacing
+        ]
+    <|
+        cells
+
+
+viewColorCell : Element.Color -> Element Msg
+viewColorCell color =
+    box
+        [ width fill
+        , height fill
+        , Background.color color
+        ]
