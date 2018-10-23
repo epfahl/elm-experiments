@@ -320,3 +320,10 @@ relToWidth rel =
 valueToString : Float -> String
 valueToString value =
     String.fromFloat value ++ "%"
+
+
+
+{-
+   ToDo:
+   - add tooltip UI (inFront on mouseOver?)
+-}
