@@ -38,7 +38,7 @@ import Svg.Attributes as SA
 
 
 lightGray =
-    rgb255 230 230 230
+    rgb255 200 230 230
 
 
 fontFamily =
