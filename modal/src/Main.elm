@@ -1,7 +1,12 @@
+{-
+   Notes
+   * Add subscriptions so the modal can be closed by pressing Esc.
+-}
+
+
 module Main exposing (main)
 
 import Browser
-import Dict exposing (Dict)
 import Element exposing (..)
 import Element.Background as B
 import Element.Events as E
